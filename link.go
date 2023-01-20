@@ -62,7 +62,7 @@ func ParseString(header string) (*Header, error) {
 		params := map[string]string{}
 		for _, param := range parts[1:] {
 			kv := strings.SplitN(strings.TrimSpace(param), "=", 2)
-			params[strings.Trim(kv[0], `"`)] = kv[1]
+			params[strings.Trim(kv[0], `"`)] = strings.Trim(kv[1], `"`)
 		}
 		link := &Link{
 			URL:    u,
@@ -126,7 +126,7 @@ func (link Link) String() string {
 	}
 	sort.Strings(keys)
 	for _, key := range keys {
-		parts = append(parts, fmt.Sprintf("%v=%v", key, link.Params[key]))
+		parts = append(parts, fmt.Sprintf(`%v="%v"`, key, link.Params[key]))
 	}
 	return strings.Join(parts, "; ")
 }

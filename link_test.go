@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const testHeader = "<http://red.com>; other=foo; rel=first, <http://purple.com>; rel=last, <http://green.com>; rel=next, <http://yellow.com>; rel=prev, <http://cyan.com>; rel=home"
+const testHeader = `<http://red.com>; other="foo"; rel="first", <http://purple.com>; rel="last", <http://green.com>; rel="next", <http://yellow.com>; rel="prev", <http://cyan.com>; rel="home"`
 
 func TestNewHeader(t *testing.T) {
 	header := NewHeader(map[string]*url.URL{
@@ -101,7 +101,7 @@ func TestHeader_String(t *testing.T) {
 
 func TestLink_String(t *testing.T) {
 	link := &Link{URL: u("http://red.com"), Params: map[string]string{"rel": "first", "other": "foo"}}
-	expected := "<http://red.com>; other=foo; rel=first"
+	expected := `<http://red.com>; other="foo"; rel="first"`
 	assert.Equal(t, expected, link.String())
 }
 
